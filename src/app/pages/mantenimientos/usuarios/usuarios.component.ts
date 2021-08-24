@@ -39,7 +39,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   cargarUsuarios(): void {
-    this.cargando = true;
+    this.cargando = false;
     this.usuarioService.obtenerUsuarios().subscribe(resp => {
       this.usuarios = resp;
       console.log('Usuarios', this.usuarios);

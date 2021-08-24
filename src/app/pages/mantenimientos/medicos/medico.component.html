@@ -78,12 +78,171 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Hospital</h4>
-        <h6 class="card-subtitle">{{hospitalSeleccionado.nombre}}</h6>
+        <h6 class="card-subtitle">{{ hospitalSeleccionado.nombre }}</h6>
         <img
           [src]="hospitalSeleccionado.img | imagen: 'hospitales'"
           class="img-thumbnail"
         />
       </div>
     </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="usuarioForm">
+      <div class="form-body">
+        <h3 class="card-title">Usuarios</h3>
+        <h6 class="card-subtitle">Agregar la información del usuario</h6>
+        <hr />
+        <div class="row p-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputuname">Nombres</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputuname"
+                  placeholder="Nombres"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputuname">Apellidos</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputuname"
+                  placeholder="Apellidos"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+        <!--/row-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-email"></i></div>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1"
+                >ID del Carnet institucional</label
+              >
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="ID del Carnet institucional"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+        <!--/row-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Tipo de documento</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
+                <div class="input-group">
+                  <select class="form-control" formControlName="hospital">
+                    <option value="">Seleccione el tipo de documento</option>
+                    <option>Cedula</option>
+                    <option>Tarjeta de identidad</option>
+                    <option>Pasaporte</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Número de identificación</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="ti-pencil-alt"></i>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Número de identificación"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Tipo de vehículo</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-car"></i></div>
+                <div class="input-group">
+                  <select class="form-control" formControlName="hospital">
+                    <option value="">Seleccione el tipo de vehículo</option>
+                    <option>Carro</option>
+                    <option>Moto</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Placa del vehículo</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="ti-layout-cta-right"></i>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Placa del vehículo"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+      </div>
+      <div class="form-group row m-b-0">
+        <div class="offset-sm-3 col-sm-9">
+          <button
+            type="submit"
+            [disabled]="medicoForm.invalid"
+            class="btn btn-success waves-effect waves-light"
+          >
+            <i class="fa fa-saave"></i>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

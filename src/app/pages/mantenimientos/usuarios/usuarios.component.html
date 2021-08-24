@@ -28,8 +28,31 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <h4 class="card-title">Usuarios</h4>
+            <h6 class="card-subtitle">Agregar un usuario nuevo</h6>
+          </div>
+          <div class="col">
+            <div class="text-right">
+              <a class="btn btn-primary" routerLink="/dashboard/medico/nuevo">
+                <i class="fa fa-user-plus"></i>
+                Crear usuario
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
         <h4 class="card-title">Total de usuarios ({{ totalUsuarios }})</h4>
-        <h6 class="card-subtitle">Usuarios registrados en mi aplicación</h6>
+        <h6 class="card-subtitle">Usuarios que utilizan el parqueadero</h6>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>

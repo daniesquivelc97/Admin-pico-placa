@@ -17,6 +17,7 @@ import { delay } from 'rxjs/operators';
 export class MedicoComponent implements OnInit {
 
   public medicoForm: FormGroup;
+  public usuarioForm: FormGroup;
   public hospitales: Hospital[] = [];
   public hospitalSeleccionado: Hospital;
   public medicoSeleccionado: Medico;
