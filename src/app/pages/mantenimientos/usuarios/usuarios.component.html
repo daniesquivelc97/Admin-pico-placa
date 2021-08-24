@@ -35,8 +35,8 @@
             <thead>
               <tr>
                 <th class="w100">Avatar</th>
-                <th>Correo</th>
                 <th>Nombre</th>
+                <th>Identificación</th>
                 <th class="w140">Role</th>
                 <th class="w100">Auth</th>
                 <th class="text-nowrap w100">Acciones</th>
@@ -47,13 +47,13 @@
                 <td class="text-center">
                   <img
                     class="avatar cursor"
-                    [src]="usuario.imagenUrl"
+                    src="../assets/images/avatar.jpg"
                     alt="Avatar de usuario"
                     (click)="abrirModal(usuario)"
                   />
                 </td>
-                <td>{{ usuario.email }}</td>
                 <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.cedula }}</td>
                 <td>
                   <select class="form-control" [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
                     <option value="ADMIN_ROLE">Admin</option>

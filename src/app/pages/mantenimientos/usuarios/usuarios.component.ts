@@ -15,8 +15,8 @@ import { Subscription } from 'rxjs';
 export class UsuariosComponent implements OnInit, OnDestroy {
 
   public totalUsuarios = 0;
-  public usuarios: Usuario[] = [];
-  public usuariosTemp: Usuario[] = [];
+  public usuarios;
+  public usuariosTemp;
   public imgSubs: Subscription;
   public desde = 0;
   public cargando = true;
@@ -40,12 +40,18 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   cargarUsuarios(): void {
     this.cargando = true;
-    this.usuarioService.cargarUsuarios(this.desde).subscribe(({ total, usuarios }) => {
-      this.totalUsuarios = total;
-      this.usuarios = usuarios;
-      this.usuariosTemp = usuarios;
+    this.usuarioService.obtenerUsuarios().subscribe(resp => {
+      this.usuarios = resp;
+      console.log('Usuarios', this.usuarios);
+      this.usuariosTemp = resp;
       this.cargando = false;
     });
+    // this.usuarioService.cargarUsuarios(this.desde).subscribe(({ total, usuarios }) => {
+    //   this.totalUsuarios = total;
+    //   this.usuarios = usuarios;
+    //   this.usuariosTemp = usuarios;
+    //   this.cargando = false;
+    // });
   }
 
   cambiarPagina(valor: number): void {

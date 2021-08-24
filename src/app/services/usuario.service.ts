@@ -11,6 +11,7 @@ import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 declare const gapi: any;
 const base_url = environment.base_url;
+const base_usuarios = environment.base_usuarios;
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class UsuarioService {
   get headers(): {} {
     return {
       headers: {
-        'x-token': this.token,
+        'Authorization': this.token,
       }
     };
   }
@@ -75,7 +76,7 @@ export class UsuarioService {
   validarToken(): Observable<boolean> {
     return this.http.get(`${base_url}/login/renew`, {
       headers: {
-        'x-token': this.token,
+        'Authorization': this.token,
       }
     }).pipe(map((resp: any) => {
       const { email, google, nombre, role, img = '', uid } = resp.usuario;
@@ -133,6 +134,11 @@ export class UsuarioService {
         };
       })
     );
+  }
+
+  obtenerUsuarios() {
+    const url = `${base_usuarios}/all`;
+    return this.http.get(url, this.headers);
   }
 
   eliminarUsuario(usuario: Usuario) {
