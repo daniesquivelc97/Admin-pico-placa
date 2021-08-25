@@ -90,7 +90,7 @@
 
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="usuarioForm">
+    <form [formGroup]="usuarioForm" (ngSubmit)="guardarUsuario()">
       <div class="form-body">
         <h3 class="card-title">Usuarios</h3>
         <h6 class="card-subtitle">Agregar la información del usuario</h6>
@@ -104,6 +104,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  formControlName="nombre"
                   id="exampleInputuname"
                   placeholder="Nombres"
                 />
@@ -119,58 +120,20 @@
                 <input
                   type="text"
                   class="form-control"
+                  formControlName="apellido"
                   id="exampleInputuname"
                   placeholder="Apellidos"
                 />
               </div>
             </div>
           </div>
-          <!--/span-->
-        </div>
-        <!--/row-->
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email</label>
-              <div class="input-group">
-                <div class="input-group-addon"><i class="ti-email"></i></div>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Email"
-                />
-              </div>
-            </div>
-          </div>
-          <!--/span-->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="exampleInputEmail1"
-                >ID del Carnet institucional</label
-              >
-              <div class="input-group">
-                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="ID del Carnet institucional"
-                />
-              </div>
-            </div>
-          </div>
-          <!--/span-->
-        </div>
-        <!--/row-->
-        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleInputEmail1">Tipo de documento</label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="ti-id-badge"></i></div>
                 <div class="input-group">
-                  <select class="form-control" formControlName="hospital">
+                  <select class="form-control" formControlName="tipoIdentificacion">
                     <option value="">Seleccione el tipo de documento</option>
                     <option>Cedula</option>
                     <option>Tarjeta de identidad</option>
@@ -191,8 +154,46 @@
                 <input
                   type="text"
                   class="form-control"
+                  formControlName="numeroIdentificacion"
                   id="exampleInputEmail1"
                   placeholder="Número de identificación"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+        <!--/row-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-email"></i></div>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  id="exampleInputEmail1"
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1"
+                >ID del Carnet institucional</label
+              >
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="idCarnet"
+                  id="exampleInputEmail1"
+                  placeholder="ID del Carnet institucional"
                 />
               </div>
             </div>
@@ -203,7 +204,7 @@
               <div class="input-group">
                 <div class="input-group-addon"><i class="ti-car"></i></div>
                 <div class="input-group">
-                  <select class="form-control" formControlName="hospital">
+                  <select class="form-control" formControlName="vehiculo">
                     <option value="">Seleccione el tipo de vehículo</option>
                     <option>Carro</option>
                     <option>Moto</option>
@@ -222,6 +223,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  formControlName="placa"
                   id="exampleInputEmail1"
                   placeholder="Placa del vehículo"
                 />
@@ -235,7 +237,7 @@
         <div class="offset-sm-3 col-sm-9">
           <button
             type="submit"
-            [disabled]="medicoForm.invalid"
+            [disabled]="usuarioForm.invalid"
             class="btn btn-success waves-effect waves-light"
           >
             <i class="fa fa-saave"></i>

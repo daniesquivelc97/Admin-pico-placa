@@ -14,12 +14,13 @@ export class AdminGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.usuarioService.role === 'ADMIN_ROLE') {
-      return true;
-    } else {
-      this.router.navigateByUrl('/dashboard');
-      return false;
-    }
+    return true;
+    // if (this.usuarioService.role === 'ADMIN_ROLE') {
+    //   return true;
+    // } else {
+    //   this.router.navigateByUrl('/dashboard');
+    //   return false;
+    // }
     // return this.usuarioService.role === 'ADMIN_ROLE' ? true : false;
   }
   

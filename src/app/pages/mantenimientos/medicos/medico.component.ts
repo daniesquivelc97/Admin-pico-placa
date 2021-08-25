@@ -41,6 +41,17 @@ export class MedicoComponent implements OnInit {
       this.hospitalSeleccionado = this.hospitales.find(
         hospital => hospital._id === hospitalId
       );
+    });
+
+    this.usuarioForm = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      tipoIdentificacion: ['', Validators.required],
+      numeroIdentificacion: ['', Validators.required],
+      email: ['', Validators.required],
+      idCarnet: ['', Validators.required],
+      vehiculo: ['', Validators.required],
+      placa: ['', Validators.required]
     })
   }
 
@@ -86,6 +97,15 @@ export class MedicoComponent implements OnInit {
     })
     }
     
+  }
+
+  guardarUsuario() {
+    console.log('Prueba usuario guardado');
+    console.log('Usuario a guardar', this.usuarioForm.value);
+    this.medicoService.crearUsuario(this.usuarioForm.value).subscribe((resp: any) => {
+      console.log('Resp', resp);
+      Swal.fire('Creado creado correctamente', 'success');
+    });
   }
 
 }

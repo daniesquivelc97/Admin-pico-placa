@@ -51,18 +51,18 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Total de usuarios ({{ totalUsuarios }})</h4>
+        <h4 class="card-title">Usuarios</h4>
         <h6 class="card-subtitle">Usuarios que utilizan el parqueadero</h6>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th class="w100">Avatar</th>
-                <th>Nombre</th>
+                <th>Nombres</th>
+                <th class="text-nowrap w100">Apellidos</th>
                 <th>Identificación</th>
-                <th class="w140">Role</th>
-                <th class="w100">Auth</th>
-                <th class="text-nowrap w100">Acciones</th>
+                <th class="w140">Vehículo</th>
+                <th class="w100">Placa</th>
               </tr>
             </thead>
             <tbody>
@@ -76,22 +76,10 @@
                   />
                 </td>
                 <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.cedula }}</td>
-                <td>
-                  <select class="form-control" [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
-                    <option value="ADMIN_ROLE">Admin</option>
-                    <option value="USER_ROLE">User</option>
-                  </select>
-                </td>
-                <td>{{ usuario.role }}</td>
-                <td>
-                  <span *ngIf="usuario.google" class="label label-danger"
-                    >Google</span
-                  >
-                  <span *ngIf="!usuario.google" class="label label-info"
-                    >Email</span
-                  >
-                </td>
+                <td>{{ usuario.apellido }}</td>
+                <td>{{ usuario.numeroIdentificacion }}</td>
+                <td> {{ usuario.vehiculo}} </td>
+                <td>{{ usuario.placa | uppercase }}</td>
                 <td class="text-nowrap text-center">
                   <a
                     data-toggle="tooltip"

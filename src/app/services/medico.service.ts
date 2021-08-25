@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Medico } from '../models/medico.model';
 
 const base_url = environment.base_url;
+const base_usuarios = environment.base_usuarios;
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class MedicoService {
   get headers(): {} {
     return {
       headers: {
-        'x-token': this.token,
+        'Authorization': this.token,
       }
     };
   }
@@ -44,6 +45,12 @@ export class MedicoService {
   crearMedico(medico: {nombre: string, hospital: string}) {
     const url = `${base_url}/medicos`;
     return this.http.post(url, medico, this.headers);
+  }
+
+  crearUsuario(usuario: {nombre: string, apellido: string, tipoIdentificacion: string,
+    numeroIdentificacion: Number, email: string, idCarnet: string, vehiculo: string, placa: string}) {
+    const url = `${base_usuarios}/crearUsuario`;
+    return this.http.post(url, usuario, this.headers);
   }
 
   actualizarMedico(medico: Medico) {
