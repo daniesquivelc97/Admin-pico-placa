@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  public usuario: Usuario;
+  public usuario;
 
   constructor(private usuarioService: UsuarioService, private router: Router) {
-    this.usuario = usuarioService.usuario;
+    this.usuario = usuarioService.nombre;
   }
 
   logOut() {

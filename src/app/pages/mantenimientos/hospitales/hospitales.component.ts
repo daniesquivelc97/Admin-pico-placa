@@ -47,7 +47,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   }
 
   cargarHospitales() {
-    this.cargando = true;
+    this.cargando = false;
     this.hospitalService.cargarHospitales().subscribe(hospitales => {
       this.cargando = false;
       this.hospitales = hospitales;

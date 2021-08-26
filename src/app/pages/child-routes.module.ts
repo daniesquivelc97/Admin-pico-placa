@@ -29,7 +29,7 @@ const childRoutes: Routes = [
   // Mantenimientos
   { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales' } },
   { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos' } },
-  { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Mantenimiento de medicos' } },
+  { path: 'usuario/:id', component: MedicoComponent, data: { titulo: 'Crear usuarios' } },
 
   // Rutas de Admin
   { path: 'usuarios', 

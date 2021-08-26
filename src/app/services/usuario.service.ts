@@ -29,6 +29,10 @@ export class UsuarioService {
     return localStorage.getItem('token') || '';
   }
 
+  get nombre(): string {
+    return localStorage.getItem('nombres') || '';
+  }
+
   get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
     return this.usuario.role;
   }
@@ -58,14 +62,14 @@ export class UsuarioService {
     });
   }
 
-  guardarLocalStorage(token: string, menu: any) {
+  guardarLocalStorage(token: string, nombres: any) {
     localStorage.setItem('token', token);
-    localStorage.setItem('menu', JSON.stringify(menu));
+    localStorage.setItem('nombres', nombres);
   }
 
   logOut(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('menu');
+    localStorage.removeItem('nombres');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
@@ -109,7 +113,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         console.log('resp', resp);
-        this.guardarLocalStorage(resp.token, resp.menu);
+        this.guardarLocalStorage(resp.token, resp.nombres);
       })
     );
   }
