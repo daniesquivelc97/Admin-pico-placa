@@ -24,48 +24,62 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!cargando">
+<div class="row animated fadeIn fast" *ngIf="!cargando">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
         <div class="row">
           <div class="col-8">
-            <h4 class="card-title">Médicos ({{ medicos.length }})</h4>
-            <h6 class="card-subtitle">Médicos registrados en mi aplicación</h6>
+            <h4 class="card-title">Administradores</h4>
+            <h6 class="card-subtitle">Agrega un nuevo administrador a la aplicación</h6>
           </div>
           <div class="col">
             <div class="text-right">
-              <a class="btn btn-primary" routerLink="/dashboard/usuario/nuevo">
-                <i class="fa fa-hospital-o"></i>
-                Crear médico
+              <a class="btn btn-primary" routerLink="/dashboard/medico/nuevo">
+                <i class="fa fa-user-plus"></i>
+                Crear usuario administrador
               </a>
             </div>
           </div>
         </div>
-        <h4 class="card-title">Médicos</h4>
-        <h6 class="card-subtitle">Médicos registrados en mi aplicación</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Usuarios admnistradores</h4>
+        <h6 class="card-subtitle">Usuarios administradores de la aplicación</h6>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="w100">Foto</th>
-                <th>Nombre</th>
-                <th class="w100 text-nowrap">Acciones</th>
-              </tr>
+                <tr>
+                  <th class="w100">Avatar</th>
+                  <th>Nombres</th>
+                  <th class="text-nowrap w100">Apellidos</th>
+                  <th>Identificación</th>
+                  <th class="w140">Email</th>
+                  <th class="w100">Placa</th>
+                </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let medico of medicos">
+              <tr *ngFor="let admin of admins">
                 <td class="text-center">
                   <img
-                    [src]="medico.img | imagen: 'medicos'"
-                    [alt]="medico.nombre"
-                    class="w100 cursor"
-                    (click)="abrirModal(medico)"
+                  class="avatar cursor"
+                  src="../assets/images/avatar.jpg"
+                  alt="Avatar de admin"
+                  (click)="abrirModal(medico)"
                   />
                 </td>
-                <td>
-                  {{ medico.nombre }}
-                </td>
+                <td>{{ admin.nombre }}</td>
+                <td>{{ admin.apellido }}</td>
+                <td>{{ admin.numeroIdentificacion }}</td>
+                <td>{{ admin.email }}</td>
                 <td class="text-nowrap text-center">
                   <a
                     class="cursor"

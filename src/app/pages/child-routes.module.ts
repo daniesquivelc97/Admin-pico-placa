@@ -11,7 +11,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
-import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { UsuarioNuevoComponent } from './mantenimientos/usuarios/usuario-nuevo.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { Routes, RouterModule } from '@angular/router';
@@ -29,7 +29,7 @@ const childRoutes: Routes = [
   // Mantenimientos
   { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales' } },
   { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos' } },
-  { path: 'usuario/:id', component: MedicoComponent, data: { titulo: 'Crear usuarios' } },
+  { path: 'usuario/:id', component: UsuarioNuevoComponent, data: { titulo: 'Crear usuarios' } },
 
   // Rutas de Admin
   { path: 'usuarios', 

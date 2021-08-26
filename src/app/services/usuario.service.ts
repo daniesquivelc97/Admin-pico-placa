@@ -145,8 +145,8 @@ export class UsuarioService {
     return this.http.get(url, this.headers);
   }
 
-  eliminarUsuario(usuario: Usuario) {
-    const url = `${base_url}/usuarios/${usuario.uid}`;
+  eliminarUsuario(usuario: any) {
+    const url = `${base_usuarios}/${usuario.numeroIdentificacion}`;
     return this.http.delete(url, this.headers);
   }
 

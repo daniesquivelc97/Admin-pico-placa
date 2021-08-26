@@ -35,6 +35,11 @@ export class MedicoService {
     );
   }
 
+  cargarAdmins() {
+    const url = `${base_url}/all`;
+    return this.http.get(url, this.headers);
+  }
+
   obtenerMedicoPorId(id: string) {
     const url = `${base_url}/medicos/${id}`;
     return this.http.get(url, this.headers).pipe(

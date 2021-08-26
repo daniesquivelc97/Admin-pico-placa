@@ -10,11 +10,11 @@ import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-medico',
-  templateUrl: './medico.component.html',
+  templateUrl: './usuario-nuevo.component.html',
   styles: [
   ]
 })
-export class MedicoComponent implements OnInit {
+export class UsuarioNuevoComponent implements OnInit {
 
   public medicoForm: FormGroup;
   public usuarioForm: FormGroup;
@@ -104,7 +104,7 @@ export class MedicoComponent implements OnInit {
     console.log('Usuario a guardar', this.usuarioForm.value);
     this.medicoService.crearUsuario(this.usuarioForm.value).subscribe((resp: any) => {
       console.log('Resp', resp);
-      Swal.fire('Creado creado correctamente', 'success');
+      Swal.fire(`${resp.nombre} Creado creado correctamente`, 'success');
     });
   }
 
