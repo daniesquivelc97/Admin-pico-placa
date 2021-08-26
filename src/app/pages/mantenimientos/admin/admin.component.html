@@ -7,7 +7,6 @@
           class="form-control"
           placeholder="Buscar médico..."
           #txtTermino
-          (keyup)="buscar(txtTermino.value)"
         />
       </div>
     </div>
@@ -35,7 +34,7 @@
           </div>
           <div class="col">
             <div class="text-right">
-              <a class="btn btn-primary" routerLink="/dashboard/medico/nuevo">
+              <a class="btn btn-primary" routerLink="/dashboard/admin/nuevo">
                 <i class="fa fa-user-plus"></i>
                 Crear usuario administrador
               </a>
@@ -63,7 +62,7 @@
                   <th class="text-nowrap w100">Apellidos</th>
                   <th>Identificación</th>
                   <th class="w140">Email</th>
-                  <th class="w100">Placa</th>
+                  <!-- <th class="w100">Placa</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -80,7 +79,7 @@
                 <td>{{ admin.apellido }}</td>
                 <td>{{ admin.numeroIdentificacion }}</td>
                 <td>{{ admin.email }}</td>
-                <td class="text-nowrap text-center">
+                <!-- <td class="text-nowrap text-center">
                   <a
                     class="cursor"
                     [routerLink]="['/dashboard', 'medico', medico._id]"
@@ -97,7 +96,7 @@
                   >
                     <i class="fa fa-close text-danger"></i>
                   </a>
-                </td>
+                </td> -->
               </tr>
             </tbody>
           </table>

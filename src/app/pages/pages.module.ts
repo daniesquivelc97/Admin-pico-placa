@@ -14,10 +14,11 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
-import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { AdminComponent } from './mantenimientos/admin/admin.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { UsuarioNuevoComponent } from './mantenimientos/usuarios/usuario-nuevo.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { NuevoAdminComponent } from './mantenimientos/admin/nuevo-admin/nuevo-admin.component';
 
 
 
@@ -33,9 +34,10 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     PerfilComponent,
     UsuariosComponent,
     HospitalesComponent,
-    MedicosComponent,
+    AdminComponent,
     UsuarioNuevoComponent,
     BusquedaComponent,
+    NuevoAdminComponent,
   ],
   exports: [
     DashboardComponent,

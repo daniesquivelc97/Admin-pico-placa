@@ -10,11 +10,12 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
-import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { AdminComponent } from './mantenimientos/admin/admin.component';
 import { UsuarioNuevoComponent } from './mantenimientos/usuarios/usuario-nuevo.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { Routes, RouterModule } from '@angular/router';
+import { NuevoAdminComponent } from './mantenimientos/admin/nuevo-admin/nuevo-admin.component';
 
 const childRoutes: Routes = [
   { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
@@ -28,13 +29,14 @@ const childRoutes: Routes = [
 
   // Mantenimientos
   { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales' } },
-  { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos' } },
+  { path: 'admins', component: AdminComponent, data: { titulo: 'Administradores del parqueadero' } },
   { path: 'usuario/:id', component: UsuarioNuevoComponent, data: { titulo: 'Crear usuarios' } },
+  { path: 'admin/:id', component: NuevoAdminComponent, data: { titulo: 'Crear administradores' } },
 
   // Rutas de Admin
   { path: 'usuarios', 
   // canActivate: [AdminGuard], 
-  component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
+  component: UsuariosComponent, data: { titulo: 'Usuarios del parqueadero' } },
 ]
 
 @NgModule({
