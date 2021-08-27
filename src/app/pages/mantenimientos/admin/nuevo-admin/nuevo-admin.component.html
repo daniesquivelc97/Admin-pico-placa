@@ -1,1 +1,128 @@
-<p>nuevo-admin works!</p>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="adminForm" (ngSubmit)="guardarAdmin()">
+      <div class="form-body">
+        <h3 class="card-title">Administradores</h3>
+        <h6 class="card-subtitle">Agregar la información de los admiistradores</h6>
+        <hr />
+        <div class="row p-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputuname">Nombres</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre"
+                  id="exampleInputuname"
+                  placeholder="Nombres"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputuname">Apellidos</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="apellido"
+                  id="exampleInputuname"
+                  placeholder="Apellidos"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Tipo de documento</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
+                <div class="input-group">
+                  <select
+                    class="form-control"
+                    formControlName="tipoIdentificacion"
+                  >
+                    <option value="">Seleccione el tipo de documento</option>
+                    <option>Cedula</option>
+                    <option>Tarjeta de identidad</option>
+                    <option>Pasaporte</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Número de identificación</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="ti-pencil-alt"></i>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroIdentificacion"
+                  id="exampleInputEmail1"
+                  placeholder="Número de identificación"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+        <!--/row-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-email"></i></div>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  id="exampleInputEmail1"
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Contraseña</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-id-badge"></i></div>
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  id="exampleInputEmail1"
+                  placeholder="Ingrese una contraseña"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row m-b-0">
+        <div class="offset-sm-3 col-sm-9">
+          <button
+            type="submit"
+            [disabled]="adminForm.invalid"
+            class="btn btn-success waves-effect waves-light"
+          >
+            <i class="fa fa-saave"></i>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

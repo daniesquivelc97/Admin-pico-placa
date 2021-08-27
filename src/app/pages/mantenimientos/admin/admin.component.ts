@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnDestroy(): void {
-    this.imgSubs.unsubscribe();
+    // this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
