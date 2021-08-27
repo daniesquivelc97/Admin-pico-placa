@@ -34,12 +34,12 @@ export class RegisterComponent {
     }
 
     // Realizar el posteo
-    this.usuarioService.crearUSuario(this.registerForm.value).subscribe( resp => {
-      this.router.navigateByUrl('/');
-    }, (err) => {
-      // Si sucede un error
-      Swal.fire('Error', err.error.msg, 'error');
-    });
+    // this.usuarioService.crearUSuario(this.registerForm.value).subscribe( resp => {
+    //   this.router.navigateByUrl('/');
+    // }, (err) => {
+    //   // Si sucede un error
+    //   Swal.fire('Error', err.error.msg, 'error');
+    // });
   }
 
   campoNoValido(campo: string): boolean {

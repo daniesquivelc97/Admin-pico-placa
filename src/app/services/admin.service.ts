@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { Medico } from '../models/medico.model';
 
 const base_url = environment.base_url;
-const base_usuarios = environment.base_usuarios;
 
 @Injectable({
   providedIn: 'root'
@@ -28,28 +27,9 @@ export class AdminService {
     };
   }
 
-  cargarMedicos() {
-    const url = `${base_url}/medicos`;
-    return this.http.get(url, this.headers).pipe(
-      map((resp: {ok: true, medicos: Medico[]}) => resp.medicos)
-    );
-  }
-
   cargarAdmins() {
     const url = `${base_url}/all`;
     return this.http.get(url, this.headers);
-  }
-
-  obtenerMedicoPorId(id: string) {
-    const url = `${base_url}/medicos/${id}`;
-    return this.http.get(url, this.headers).pipe(
-      map((resp: {ok: boolean, medico: Medico}) => resp.medico)
-    );
-  }
-
-  crearMedico(medico: {nombre: string, hospital: string}) {
-    const url = `${base_url}/medicos`;
-    return this.http.post(url, medico, this.headers);
   }
 
   crearAdmin(admin: {nombre: string, apellido: string, tipoIdentificacion: string,
@@ -63,8 +43,4 @@ export class AdminService {
     return this.http.put(url, medico, this.headers);
   }
 
-  eliminarMedico(_id: string) {
-    const url = `${base_url}/medicos/${_id}`;
-    return this.http.delete(url, this.headers);
-  }
 }

@@ -91,51 +91,12 @@ export class UsuarioService {
       catchError(error => of(false)));
   }
 
-  crearUSuario(formData: RegisterForm): any {
-    return this.http.post(`${base_url}/usuarios`, formData).pipe(
-      tap((resp: any) => {
-        this.guardarLocalStorage(resp.token, resp.menu);
-      })
-    );
-  }
-
-  actualizarPerfil(data: { email: string, nombre: string, role: string }) {
-    data = {
-      ...data,
-      role: this.usuario.role
-    };
-
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.headers);
-  }
-
   login(formData: LoginForm): Observable<any> {
     console.log('Prueba', formData);
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         console.log('resp', resp);
         this.guardarLocalStorage(resp.token, resp.nombres);
-      })
-    );
-  }
-
-  // loginGoogle(token): Observable<any> {
-  //   return this.http.post(`${base_url}/login/google`, { token }).pipe(
-  //     tap((resp: any) => {
-  //       this.guardarLocalStorage(resp.token, resp.menu);
-  //     })
-  //   );
-  // }
-
-  cargarUsuarios(desde: number = 0): Observable<CargarUsuario> {
-    const url = `${base_url}/usuarios?desde=${desde}`;
-    return this.http.get<CargarUsuario>(url, this.headers).pipe(
-      map(resp => {
-        const usuarios = resp.usuarios.map(
-          user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid));
-        return {
-          total: resp.total,
-          usuarios
-        };
       })
     );
   }
@@ -156,8 +117,4 @@ export class UsuarioService {
     return this.http.delete(url, this.headers);
   }
 
-  guardarUsuario(usuario: Usuario) {
-
-    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers);
-  }
 }

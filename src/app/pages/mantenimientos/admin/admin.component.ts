@@ -2,10 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
 import { Medico } from '../../../models/medico.model';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
-import { delay } from 'rxjs/operators';
-import { BusquedasService } from '../../../services/busquedas.service';
 import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-medicos',
@@ -22,7 +19,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(
     private medicoService: AdminService,
     private modalImagenService: ModalImagenService,
-    private busquedasService: BusquedasService,
   ) { }
 
   ngOnDestroy(): void {

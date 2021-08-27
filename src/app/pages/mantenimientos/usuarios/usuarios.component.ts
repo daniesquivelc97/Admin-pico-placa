@@ -46,12 +46,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.usuariosTemp = resp;
       this.cargando = false;
     });
-    // this.usuarioService.cargarUsuarios(this.desde).subscribe(({ total, usuarios }) => {
-    //   this.totalUsuarios = total;
-    //   this.usuarios = usuarios;
-    //   this.usuariosTemp = usuarios;
-    //   this.cargando = false;
-    // });
   }
 
   cambiarPagina(valor: number): void {
@@ -74,9 +68,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   eliminarUsuario(usuario: Usuario) {
-    // if (usuario.uid === this.usuarioService.uid) {
-    //   return Swal.fire('Error', 'No puede borrarse a si mismo', 'error');
-    // }
     Swal.fire({
       title: '¿Borrar usuario?',
       text: `Está a punto de eliminar a ${usuario.nombre}.`,
@@ -94,12 +85,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
           );
         });
       }
-    });
-  }
-
-  cambiarRole(usuario: Usuario) {
-    this.usuarioService.guardarUsuario(usuario).subscribe(resp => {
-      console.log(resp);
     });
   }
 
