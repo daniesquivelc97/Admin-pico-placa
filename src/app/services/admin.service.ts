@@ -10,7 +10,7 @@ const base_usuarios = environment.base_usuarios;
 @Injectable({
   providedIn: 'root'
 })
-export class MedicoService {
+export class AdminService {
 
   constructor(
     private http: HttpClient
@@ -52,10 +52,10 @@ export class MedicoService {
     return this.http.post(url, medico, this.headers);
   }
 
-  crearUsuario(usuario: {nombre: string, apellido: string, tipoIdentificacion: string,
-    numeroIdentificacion: Number, email: string, idCarnet: string, vehiculo: string, placa: string}) {
-    const url = `${base_usuarios}/crearUsuario`;
-    return this.http.post(url, usuario, this.headers);
+  crearAdmin(admin: {nombre: string, apellido: string, tipoIdentificacion: string,
+    numeroIdentificacion: Number, email: string, password: string}) {
+    const url = `${base_url}/crear`;
+    return this.http.post(url, admin, this.headers);
   }
 
   actualizarMedico(medico: Medico) {

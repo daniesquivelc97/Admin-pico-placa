@@ -145,6 +145,12 @@ export class UsuarioService {
     return this.http.get(url, this.headers);
   }
 
+  crearUsuario(usuario: {nombre: string, apellido: string, tipoIdentificacion: string,
+    numeroIdentificacion: Number, email: string, idCarnet: string, vehiculo: string, placa: string}) {
+    const url = `${base_usuarios}/crearUsuario`;
+    return this.http.post(url, usuario, this.headers);
+  }
+
   eliminarUsuario(usuario: any) {
     const url = `${base_usuarios}/${usuario.numeroIdentificacion}`;
     return this.http.delete(url, this.headers);

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MedicoService } from '../../../services/medico.service';
+import { AdminService } from '../../../services/admin.service';
 import { Medico } from '../../../models/medico.model';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { delay } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   private imgSubs: Subscription;
 
   constructor(
-    private medicoService: MedicoService,
+    private medicoService: AdminService,
     private modalImagenService: ModalImagenService,
     private busquedasService: BusquedasService,
   ) { }
