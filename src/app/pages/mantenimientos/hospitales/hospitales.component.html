@@ -1,4 +1,4 @@
-<div class="row animated fadeIn fast">
+<!-- <div class="row animated fadeIn fast">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
@@ -99,4 +99,48 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="formPrueba" (ngSubmit)="guardar()">
+      <div class="form-body">
+        <h3 class="card-title">Usuarios</h3>
+        <h6 class="card-subtitle">Agregar la información del usuario</h6>
+        <hr />
+        <div class="row p-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Placa del vehículo</label>
+              <div class="input-group">
+                <mat-form-field appearance="fill">
+                  <mat-label>Enter a date range</mat-label>
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input formControlName="inicio" matStartDate placeholder="Start date">
+                    <input formControlName="fin" matEndDate placeholder="End date">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+        </div>
+      </div>
+      <div class="form-group row m-b-0">
+        <div class="offset-sm-3 col-sm-9">
+          <button
+            type="submit"
+            [disabled]=""
+            class="btn btn-success waves-effect waves-light"
+          >
+            <i class="fa fa-saave"></i>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+

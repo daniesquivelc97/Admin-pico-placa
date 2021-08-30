@@ -19,6 +19,11 @@ import { PipesModule } from '../pipes/pipes.module';
 import { UsuarioNuevoComponent } from './mantenimientos/usuarios/usuario-nuevo.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { NuevoAdminComponent } from './mantenimientos/admin/nuevo-admin/nuevo-admin.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -53,7 +58,12 @@ import { NuevoAdminComponent } from './mantenimientos/admin/nuevo-admin/nuevo-ad
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ]
 })
 export class PagesModule { }

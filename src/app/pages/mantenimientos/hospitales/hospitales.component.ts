@@ -7,6 +7,7 @@ import { delay } from 'rxjs/operators';
 import { Usuario } from 'src/app/models/usuario.model';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-hospitales',
@@ -19,11 +20,13 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   public hospitales: Hospital[] = [];
   public cargando: boolean = true;
   private imgSubs: Subscription;
+  formPrueba: FormGroup
 
   constructor(
     private hospitalService: HospitalService,
     private modalImagenService: ModalImagenService,
     private busquedasService: BusquedasService,
+    private fb: FormBuilder,
   ) { }
 
   ngOnDestroy(): void {
@@ -35,6 +38,11 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(100))
     .subscribe(img => this.cargarHospitales());
+
+    this.formPrueba = this.fb.group({
+      inicio: ['', Validators.required],
+      fin: ['', Validators.required]
+    });
   }
 
   buscar(termino: string) {
@@ -85,6 +93,10 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   abrirModal(hospital: Hospital) {
     this.modalImagenService.abrirModal('hospitales', hospital._id, hospital.img);
+  }
+
+  guardar() {
+    console.log('Valor', this.formPrueba.value);
   }
 
 }

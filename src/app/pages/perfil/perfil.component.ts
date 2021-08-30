@@ -29,14 +29,14 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizarPerfil(): void {
-    this.usuarioService.actualizarPerfil(this.perfilForm.value).subscribe(resp => {
-      const {nombre, email} = this.perfilForm.value;
-      this.usuario.nombre = nombre;
-      this.usuario.email = email;
-      Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
-    }, (err) => {
-      Swal.fire('Error al guardar', err.error.msg, 'error');
-    });
+    // this.usuarioService.actualizarPerfil(this.perfilForm.value).subscribe(resp => {
+    //   const {nombre, email} = this.perfilForm.value;
+    //   this.usuario.nombre = nombre;
+    //   this.usuario.email = email;
+    //   Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+    // }, (err) => {
+    //   Swal.fire('Error al guardar', err.error.msg, 'error');
+    // });
   }
 
   cambiarImagen(file: File): void {
