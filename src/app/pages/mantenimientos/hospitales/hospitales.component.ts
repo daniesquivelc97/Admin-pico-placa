@@ -7,7 +7,7 @@ import { delay } from 'rxjs/operators';
 import { Usuario } from 'src/app/models/usuario.model';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-hospitales',
@@ -20,7 +20,10 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   public hospitales: Hospital[] = [];
   public cargando: boolean = true;
   private imgSubs: Subscription;
-  formPrueba: FormGroup
+  public formulario: FormGroup;
+  public picoPlacaForm: FormGroup;
+  public restriccionForm: FormGroup;
+  public siguienteForm: boolean = false;
 
   constructor(
     private hospitalService: HospitalService,
@@ -30,19 +33,77 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnDestroy(): void {
-    this.imgSubs.unsubscribe();
+    // this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.cargarHospitales();
-    this.imgSubs = this.modalImagenService.nuevaImagen
-    .pipe(delay(100))
-    .subscribe(img => this.cargarHospitales());
+    // this.cargarHospitales();
+    // this.imgSubs = this.modalImagenService.nuevaImagen
+    // .pipe(delay(100))
+    // .subscribe(img => this.cargarHospitales());
 
-    this.formPrueba = this.fb.group({
+    this.picoPlacaForm = this.fb.group({
       inicio: ['', Validators.required],
       fin: ['', Validators.required]
     });
+
+    this.restriccionForm = this.fb.group({
+      vehiculo: ['', Validators.required],
+      dia: ['', Validators.required],
+      digito: ['', Validators.required],
+      digitoRestriccion: this.fb.array([]),
+    })
+
+    this.crearFormulario();
+  }
+
+  guardar() {
+    // this.anadirDigito();
+    console.log('Valor', this.picoPlacaForm.value);
+    console.log('Valor res', this.restriccionForm.value);
+    this.siguienteForm = true;
+  }
+
+  crearFormulario() {
+    this.formulario = this.fb.group({
+      vehiculo: ['', Validators.required],
+      experienciaLaboral: this.fb.array([])
+    });
+  }
+
+  get digitoRestriccion(): FormArray {
+    return this.restriccionForm.get('digitoRestriccion') as FormArray;
+  }
+
+  get experienciaLaboral(): FormArray {
+    return this.formulario.get('experienciaLaboral') as FormArray;
+  }
+
+  anadirDigito() {
+    console.log('a guardar', this.restriccionForm.value.digito);
+    const digito = this.fb.group({
+      digito: this.restriccionForm.value.digito,
+    });
+    console.log('digito', digito);
+  
+    this.digitoRestriccion.push(digito);
+  }
+
+  digitoGuardado() {}
+
+  anadirExperienciaLaboral() {
+    const trabajo = this.fb.group({
+      empresa: new FormControl(''),
+      puesto: new FormControl(''),
+      descripcion: new FormControl('')
+    });
+  
+    this.experienciaLaboral.push(trabajo);
+    console.log('empleo', this.formulario.getRawValue());
+  }
+
+  borrarTrabajo(indice: number) {
+    this.experienciaLaboral.removeAt(indice);
   }
 
   buscar(termino: string) {
@@ -95,8 +156,5 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     this.modalImagenService.abrirModal('hospitales', hospital._id, hospital.img);
   }
 
-  guardar() {
-    console.log('Valor', this.formPrueba.value);
-  }
 
 }

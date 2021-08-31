@@ -103,23 +103,34 @@
 
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="formPrueba" (ngSubmit)="guardar()">
+    <form [formGroup]="picoPlacaForm" (ngSubmit)="guardar()">
       <div class="form-body">
-        <h3 class="card-title">Usuarios</h3>
-        <h6 class="card-subtitle">Agregar la información del usuario</h6>
+        <h3 class="card-title">Pico y placa</h3>
+        <h6 class="card-subtitle">Establezca la restricción de pico y placa para este semestre.</h6>
         <hr />
         <div class="row p-t-20">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="exampleInputEmail1">Placa del vehículo</label>
+              <label for="exampleInputEmail1">Fecha de la restricción</label>
               <div class="input-group">
                 <mat-form-field appearance="fill">
-                  <mat-label>Enter a date range</mat-label>
+                  <mat-label>Rango de fecha</mat-label>
                   <mat-date-range-input [rangePicker]="picker">
-                    <input formControlName="inicio" matStartDate placeholder="Start date">
-                    <input formControlName="fin" matEndDate placeholder="End date">
+                    <input
+                      formControlName="inicio"
+                      matStartDate
+                      placeholder="Fecha inicio"
+                    />
+                    <input
+                      formControlName="fin"
+                      matEndDate
+                      placeholder="Fecha fin"
+                    />
                   </mat-date-range-input>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
                   <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
               </div>
@@ -129,7 +140,7 @@
         </div>
       </div>
       <div class="form-group row m-b-0">
-        <div class="offset-sm-3 col-sm-9">
+        <div>
           <button
             type="submit"
             [disabled]=""
@@ -144,3 +155,102 @@
   </div>
 </div>
 
+<div class="card" >
+  <div class="card-body">
+    <form [formGroup]="restriccionForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Tipo de vehículo</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-car"></i></div>
+                <select class="form-control" formControlName="vehiculo">
+                  <option value="">Seleccione el tipo de vehículo</option>
+                  <option>Ambos vehículos</option>
+                  <option>Carro</option>
+                  <option>Moto</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Día</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                <select class="form-control" formControlName="dia">
+                  <option value="">Seleccione el día de la restricción</option>
+                  <option>Lunes</option>
+                  <option>Martes</option>
+                  <option>Miercoles</option>
+                  <option>Jueves</option>
+                  <option>Viernes</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Digito de restricción</label>
+                <div class="input-group">
+              <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                <select  class="form-control" formControlName="digito">
+                  <option  value="">Seleccione el digito a restringir</option>
+                  <option *ngFor="let number of [0,1,2,3,4,5,6,7,8,9]">{{number}}</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" formArrayName="digitoRestriccion">
+          <div class="form-group" *ngFor="let digito of digitoRestriccion.controls">
+            <label for="exampleInputEmail1">Digito de restricción</label>
+            <div [formGroup]="restriccionForm">
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                    <select  class="form-control" formControlName="digito">
+                      <option  value="">Seleccione el digito a restringir</option>
+                      <option *ngFor="let number of [0,1,2,3,4,5,6,7,8,9]">{{number}}</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-box m-t-20">
+        <button (click)="anadirDigito()" class="btn btn-outline-primary"> <i class="fa fa-plus"></i> Agregar digito</button>
+        <button type="button" class="btn btn-outline-danger"> <i class="fa fa-check"></i> Confirmar cambios</button>
+        <button (click)="guardar()" class="btn btn-outline-success"> <i class="fa fa-save"></i> Guardar</button>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+
+
+<form [formGroup]="formulario">
+  <h3>
+    Experiencia Laboral:
+  </h3>
+  <div formArrayName="experienciaLaboral">
+    <div *ngFor="let trabajo of experienciaLaboral.controls">
+      <div>
+        <label>Empresa:</label><br />
+        <input formControlName="vehiculo" type="text" />
+      </div>
+      <div>
+        <label>Puesto:</label><br />
+        <input  type="text" />
+      </div>
+      <div>
+        <label>Descripción:</label><br />
+        <textarea></textarea>
+      </div>
+      <hr />
+    </div>
+  </div>
+  <button (click)="anadirExperienciaLaboral()">
+    + Añadir
+  </button>
+</form>
