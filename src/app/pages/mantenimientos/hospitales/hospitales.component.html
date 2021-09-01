@@ -189,7 +189,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="form-group">
             <label for="exampleInputEmail1">Digito de restricción</label>
                 <div class="input-group">
@@ -201,8 +201,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" formArrayName="digitoRestriccion">
-          <div class="form-group" *ngFor="let digito of digitoRestriccion.controls">
+        <div class="col-md-12" formArrayName="digitoRestriccion">
+          <div class="form-group" *ngFor="let digito of digitoRestriccion.controls; let i = index;">
             <label for="exampleInputEmail1">Digito de restricción</label>
             <div [formGroup]="restriccionForm">
                 <div class="input-group">
@@ -215,11 +215,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>    
 
       <div class="button-box m-t-20">
         <button (click)="anadirDigito()" class="btn btn-outline-primary"> <i class="fa fa-plus"></i> Agregar digito</button>
-        <button type="button" class="btn btn-outline-danger"> <i class="fa fa-check"></i> Confirmar cambios</button>
+        <!-- <button (click)="confirmar()" type="button" class="btn btn-outline-danger"> <i class="fa fa-check"></i> Confirmar digitos</button> -->
         <button (click)="guardar()" class="btn btn-outline-success"> <i class="fa fa-save"></i> Guardar</button>
       </div>
       

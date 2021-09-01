@@ -24,6 +24,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   public picoPlacaForm: FormGroup;
   public restriccionForm: FormGroup;
   public siguienteForm: boolean = false;
+  flag: boolean = false;
 
   constructor(
     private hospitalService: HospitalService,
@@ -51,6 +52,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
       vehiculo: ['', Validators.required],
       dia: ['', Validators.required],
       digito: ['', Validators.required],
+      digito2: ['', Validators.required],
       digitoRestriccion: this.fb.array([]),
     })
 
@@ -58,10 +60,12 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
-    // this.anadirDigito();
+    this.anadirDigito();
     console.log('Valor', this.picoPlacaForm.value);
     console.log('Valor res', this.restriccionForm.value);
     this.siguienteForm = true;
+    this.restriccionForm.reset();
+    this.digitoRestriccion.clear();
   }
 
   crearFormulario() {
@@ -87,9 +91,18 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     console.log('digito', digito);
   
     this.digitoRestriccion.push(digito);
+    console.log('otro', this.digitoRestriccion.value);
+
+    console.log('tamaño', this.digitoRestriccion.length);
   }
 
-  digitoGuardado() {}
+  // confirmar() {
+  //   this.anadirDigito();
+  //   this.borrar(2);
+  //   this.flag = true;
+  //   console.log('otro 2', this.digitoRestriccion.value);
+  //   console.log('flag', this.flag);
+  // }
 
   anadirExperienciaLaboral() {
     const trabajo = this.fb.group({
@@ -104,6 +117,10 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   borrarTrabajo(indice: number) {
     this.experienciaLaboral.removeAt(indice);
+  }
+
+  borrar(indice: number) {
+    this.digitoRestriccion.removeAt(indice);
   }
 
   buscar(termino: string) {
