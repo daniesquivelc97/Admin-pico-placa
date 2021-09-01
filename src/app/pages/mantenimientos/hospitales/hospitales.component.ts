@@ -8,6 +8,8 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { Subscription } from 'rxjs';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PicoYPlacaServiceService } from '../../../services/pico-yplaca-service.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-hospitales',
@@ -23,14 +25,16 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   public formulario: FormGroup;
   public picoPlacaForm: FormGroup;
   public restriccionForm: FormGroup;
-  public siguienteForm: boolean = false;
+  public mostrarRestriccionForm: boolean = false;
   flag: boolean = false;
 
   constructor(
     private hospitalService: HospitalService,
+    private picoPlacaService: PicoYPlacaServiceService,
     private modalImagenService: ModalImagenService,
     private busquedasService: BusquedasService,
     private fb: FormBuilder,
+    private datePipe: DatePipe
   ) { }
 
   ngOnDestroy(): void {
@@ -44,8 +48,9 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     // .subscribe(img => this.cargarHospitales());
 
     this.picoPlacaForm = this.fb.group({
-      inicio: ['', Validators.required],
-      fin: ['', Validators.required]
+      fechaInicio: ['', Validators.required],
+      fechaFin: ['', Validators.required],
+      activo: false
     });
 
     this.restriccionForm = this.fb.group({
@@ -57,13 +62,56 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     })
 
     this.crearFormulario();
+    this.obtener();
+  }
+
+  obtener() {
+    this.picoPlacaService.obtenerPicoPlaca().subscribe(pico => {
+      console.log('Pico y placa', pico[0].activo);
+      if (!pico[0].activo) {
+        console.log('HOla');
+        this.mostrarRestriccionForm = true;
+      }
+    });
+  }
+
+  guardarFecha() {
+    console.log('Fechas a guardar', this.picoPlacaForm.value);
+    Swal.fire({
+      title: '¿Guardar pico y placa?',
+      text: `La fecha que va a establecer es desde el ${this.datePipe.transform(this.picoPlacaForm.value.fechaInicio,"dd-MM-yyyy")} 
+      hasta el ${this.datePipe.transform(this.picoPlacaForm.value.fechaFin,"dd-MM-yyyy")}, si acepta esta será la fecha establecida para
+      todo el semestre y no se podrá cambiar hasta el ${this.datePipe.transform(this.picoPlacaForm.value.fechaFin,"dd-MM-yyyy")}.`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Establecer'
+    }).then((result) => {
+      if (result.value) {
+        this.picoPlacaService.crearPicoPlaca(this.picoPlacaForm.value).subscribe(fecha => {
+          console.log('Fecha', fecha);
+          this.obtener();
+          Swal.fire(
+            'Pico y placa establecido',
+            `El pico y placa desde el ${this.datePipe.transform(this.picoPlacaForm.value.fechaInicio,"dd-MM-yyyy")} hasta el 
+            ${this.datePipe.transform(this.picoPlacaForm.value.fechaFin,"dd-MM-yyyy")} fue creado correctamente.`,
+            'success'
+          );
+        }, (error) => {
+          console.log('Error', error);
+          Swal.fire(
+            'Error',
+            'Hubo un error estableciendo la medida.',
+            'error'
+          );
+        });
+      }
+    })
+    
   }
 
   guardar() {
     this.anadirDigito();
-    console.log('Valor', this.picoPlacaForm.value);
     console.log('Valor res', this.restriccionForm.value);
-    this.siguienteForm = true;
     this.restriccionForm.reset();
     this.digitoRestriccion.clear();
   }

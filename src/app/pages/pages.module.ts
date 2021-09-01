@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
@@ -50,6 +50,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     Grafica1Component,
     PagesComponent,
     AccountSettingsComponent,
+    DatePipe
   ],
   imports: [
     CommonModule,
@@ -64,6 +65,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatFormFieldModule,
     MatNativeDateModule,
-  ]
+    // DatePipe
+  ],
 })
 export class PagesModule { }

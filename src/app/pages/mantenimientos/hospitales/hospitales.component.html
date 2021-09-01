@@ -103,7 +103,7 @@
 
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="picoPlacaForm" (ngSubmit)="guardar()">
+    <form [formGroup]="picoPlacaForm" (ngSubmit)="guardarFecha()">
       <div class="form-body">
         <h3 class="card-title">Pico y placa</h3>
         <h6 class="card-subtitle">Establezca la restricción de pico y placa para este semestre.</h6>
@@ -113,16 +113,16 @@
             <div class="form-group">
               <label for="exampleInputEmail1">Fecha de la restricción</label>
               <div class="input-group">
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" disabled="true">
                   <mat-label>Rango de fecha</mat-label>
                   <mat-date-range-input [rangePicker]="picker">
                     <input
-                      formControlName="inicio"
+                      formControlName="fechaInicio"
                       matStartDate
                       placeholder="Fecha inicio"
                     />
                     <input
-                      formControlName="fin"
+                      formControlName="fechaFin"
                       matEndDate
                       placeholder="Fecha fin"
                     />
@@ -155,7 +155,7 @@
   </div>
 </div>
 
-<div class="card" >
+<div class="card" *ngIf="mostrarRestriccionForm">
   <div class="card-body">
     <form [formGroup]="restriccionForm">
       <div class="row">

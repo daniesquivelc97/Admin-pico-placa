@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   base_url: 'http://localhost:8089/picoyplaca/admin',
-  base_usuarios: 'http://localhost:8089/picoyplaca/usuarios'
+  base_usuarios: 'http://localhost:8089/picoyplaca/usuarios',
+  base_pico_placa: 'http://localhost:8089/picoyplaca/picoyplacaAdmin'
 };
 
 /*
