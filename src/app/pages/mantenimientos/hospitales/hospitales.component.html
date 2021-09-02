@@ -101,12 +101,41 @@
   </div>
 </div> -->
 
-<div class="card">
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="alert alert-info text-center" role="alert">
+      <h4 class="alert-heading">Cargando</h4>
+      <i class="fa fa-spin fa-refresh fa-2x"></i>
+      <p class="mb-0">Por favor espere</p>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6 col-lg-6 col-xlg-4" *ngIf="!cargando && !mostrarCalendarioForm">
+  <div class="card card-body">
+      <div class="row">
+          <div class="col-md-4 col-lg-3 text-center && !mostrarCalendarioForm">
+              <a href="app-contact-detail.html"><img src="../assets/images/calendario.jpg" alt="user" class="img-circle img-responsive"></a>
+          </div>
+          <div class="col-md-8 col-lg-9">
+              <h3 class="box-title m-b-0">Fecha de la restricción </h3> <small>Semestre 2021-2</small>
+              <address>
+                Desde {{fechaInicio | date}}
+                  <br>
+                  Hasta {{fechaFin | date}}
+                  <br>
+              </address>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!cargando && mostrarCalendarioForm">
   <div class="card-body">
     <form [formGroup]="picoPlacaForm" (ngSubmit)="guardarFecha()">
       <div class="form-body">
         <h3 class="card-title">Pico y placa</h3>
-        <h6 class="card-subtitle">Establezca la restricción de pico y placa para este semestre.</h6>
+        <h6 class="card-subtitle">Establezca la fecha restricción de pico y placa para este semestre.</h6>
         <hr />
         <div class="row p-t-20">
           <div class="col-md-6">
@@ -158,6 +187,9 @@
 <div class="card" *ngIf="mostrarRestriccionForm">
   <div class="card-body">
     <form [formGroup]="restriccionForm">
+      <h3 class="card-title">Digitos, vehículos y días</h3>
+        <h6 class="card-subtitle">Establezca los digitos, vehículos y días de la restricción.</h6>
+        <hr />
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -227,30 +259,51 @@
   </div>
 </div>
 
-
-
-<form [formGroup]="formulario">
-  <h3>
-    Experiencia Laboral:
-  </h3>
-  <div formArrayName="experienciaLaboral">
-    <div *ngFor="let trabajo of experienciaLaboral.controls">
-      <div>
-        <label>Empresa:</label><br />
-        <input formControlName="vehiculo" type="text" />
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Restricciones</h4>
+        <h6 class="card-subtitle">Números restringidos por días.</h6>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="w100">Avatar</th>
+                <th class="text-nowrap w102">Tipo de vehículo</th>
+                <th class="text-nowrap w100">Día de la restricción</th>
+                <th class="text-nowrap w100">Digitos restringidos</th>
+                <!-- <th class="w140">Vehículo</th>
+                <th class="w100">Placa</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let restriccion of restricciones">
+                <td class="text-center">
+                  <img
+                    class="avatar cursor"
+                    src="../assets/images/vehiculo.png"
+                    alt="Avatar de usuario"
+                    (click)="abrirModal(usuario)"
+                  />
+                </td>
+                <td>{{ restriccion.tipoVehiculo }}</td>
+                <td>{{ restriccion.dia }}</td>
+                <td>{{ restriccion.digito }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div *ngIf="txtTermino.value.length === 0">
+          <button (click)="cambiarPagina(-5)" class="btn btn-secondary">
+            Anteriores
+          </button>
+          &nbsp;
+          <button (click)="cambiarPagina(5)" class="btn btn-secondary">
+            Siguientes
+          </button>
+        </div> -->
       </div>
-      <div>
-        <label>Puesto:</label><br />
-        <input  type="text" />
-      </div>
-      <div>
-        <label>Descripción:</label><br />
-        <textarea></textarea>
-      </div>
-      <hr />
     </div>
   </div>
-  <button (click)="anadirExperienciaLaboral()">
-    + Añadir
-  </button>
-</form>
+</div>

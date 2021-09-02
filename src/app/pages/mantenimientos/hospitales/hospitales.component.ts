@@ -25,8 +25,13 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   public formulario: FormGroup;
   public picoPlacaForm: FormGroup;
   public restriccionForm: FormGroup;
-  public mostrarRestriccionForm: boolean = false;
-  flag: boolean = false;
+  public mostrarRestriccionForm: boolean = true;
+  public mostrarCalendarioForm: boolean = true;
+  public numerosString = "";
+  public idFecha;
+  public restricciones;
+  public fechaInicio;
+  public fechaFin;
 
   constructor(
     private hospitalService: HospitalService,
@@ -57,21 +62,36 @@ export class HospitalesComponent implements OnInit, OnDestroy {
       vehiculo: ['', Validators.required],
       dia: ['', Validators.required],
       digito: ['', Validators.required],
-      digito2: ['', Validators.required],
       digitoRestriccion: this.fb.array([]),
-    })
+    });
 
     this.crearFormulario();
-    this.obtener();
+    this.obtenerFecha();
+    this.obtenerRestricciones();
   }
 
-  obtener() {
+  obtenerFecha() {
     this.picoPlacaService.obtenerPicoPlaca().subscribe(pico => {
+      console.log('pico', pico);
       console.log('Pico y placa', pico[0].activo);
+      this.idFecha = pico[0].idPicoYPlaca;
+      this.fechaInicio = pico[0].fechaInicio;
+      this.fechaFin = pico[0].fechaFin;
+      console.log('ID', this.idFecha);
       if (!pico[0].activo) {
         console.log('HOla');
         this.mostrarRestriccionForm = true;
+        this.mostrarCalendarioForm = false;
       }
+    });
+  }
+
+  obtenerRestricciones() {
+    this.cargando = true;
+    this.picoPlacaService.obtenerRestricciones().subscribe(restricciones => {
+      console.log('Restricciones', restricciones);
+      this.restricciones = restricciones;
+      this.cargando = false;
     });
   }
 
@@ -89,7 +109,8 @@ export class HospitalesComponent implements OnInit, OnDestroy {
       if (result.value) {
         this.picoPlacaService.crearPicoPlaca(this.picoPlacaForm.value).subscribe(fecha => {
           console.log('Fecha', fecha);
-          this.obtener();
+          this.obtenerFecha();
+          this.mostrarCalendarioForm = false;
           Swal.fire(
             'Pico y placa establecido',
             `El pico y placa desde el ${this.datePipe.transform(this.picoPlacaForm.value.fechaInicio,"dd-MM-yyyy")} hasta el 
@@ -109,11 +130,46 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     
   }
 
+  tratarDigitos(numeros) {
+    for (let i=0; i<numeros.length; i++) {
+      let guardar = numeros[i].toString();
+      this.numerosString = this.numerosString.concat(guardar);
+    }
+    console.log('Final', this.numerosString);
+  }
+
   guardar() {
     this.anadirDigito();
     console.log('Valor res', this.restriccionForm.value);
-    this.restriccionForm.reset();
-    this.digitoRestriccion.clear();
+    console.log('Digitos a guardar', this.digitoRestriccion.value.toString());
+    this.tratarDigitos(this.digitoRestriccion.value.toString());
+    let body = {
+      tipoVehiculo:  this.restriccionForm.value.vehiculo,
+      dia: this.restriccionForm.value.dia,
+      digito: this.numerosString,
+      fechaPicoPlaca: {
+          idPicoYPlaca: this.idFecha
+      }
+    }
+    this.picoPlacaService.crearRestriccionPicoPlaca(body).subscribe(res => {
+      console.log('Respuesta restriccion', res);
+      Swal.fire(
+        'Restricción establecida',
+        `Restricción establecida correctamente.`,
+        'success'
+      );
+      this.restriccionForm.reset();
+      this.digitoRestriccion.clear();
+      this.obtenerRestricciones();
+    }, (error) => {
+      console.log('Error', error);
+      Swal.fire(
+        'Error',
+        'Hubo un error estableciendo la medida.',
+        'error'
+      );
+    });
+    
   }
 
   crearFormulario() {
@@ -133,15 +189,10 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   anadirDigito() {
     console.log('a guardar', this.restriccionForm.value.digito);
-    const digito = this.fb.group({
-      digito: this.restriccionForm.value.digito,
-    });
-    console.log('digito', digito);
-  
-    this.digitoRestriccion.push(digito);
-    console.log('otro', this.digitoRestriccion.value);
-
-    console.log('tamaño', this.digitoRestriccion.length);
+    const digito = this.fb.array([
+      new FormControl(this.restriccionForm.value.digito.toString()),
+    ]);
+    this.digitoRestriccion.push(new FormControl(Number(digito.value.toString())));
   }
 
   // confirmar() {
