@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
-import { Medico } from '../../../models/medico.model';
-import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../../../services/usuario.service';
@@ -16,16 +14,13 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   public cargando: boolean = true;
   public admins;
-  private imgSubs: Subscription;
 
   constructor(
     private medicoService: AdminService,
-    private modalImagenService: ModalImagenService,
     private usuarioService: UsuarioService
   ) { }
 
   ngOnDestroy(): void {
-    // this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -52,16 +47,4 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
   }
 
-  // buscar(termino: string) {
-  //   if (termino.length === 0) {
-  //     return this.cargarMedicos();
-  //   }
-  //   this.busquedasService.buscar('medicos', termino).subscribe(resp => {
-  //     this.medicos = resp;
-  //   });
-  // }
-
-  abrirModal(medico: Medico) {
-    this.modalImagenService.abrirModal('medicos', medico._id, medico.img);
-  }
 }

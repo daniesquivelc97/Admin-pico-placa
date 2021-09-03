@@ -1,11 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HospitalService } from '../../../services/hospital.service';
-import { Hospital } from '../../../models/hospital.model';
 import Swal from 'sweetalert2';
-import { ModalImagenService } from '../../../services/modal-imagen.service';
-import { delay } from 'rxjs/operators';
-import { Usuario } from 'src/app/models/usuario.model';
-import { BusquedasService } from '../../../services/busquedas.service';
 import { Subscription } from 'rxjs';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PicoYPlacaServiceService } from '../../../services/pico-yplaca-service.service';
@@ -21,9 +15,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 })
 export class PicoYPlacaComponent implements OnInit, OnDestroy {
 
-  public hospitales: Hospital[] = [];
   public cargando: boolean = true;
-  private imgSubs: Subscription;
   public formulario: FormGroup;
   public picoPlacaForm: FormGroup;
   public restriccionForm: FormGroup;
@@ -36,25 +28,16 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
   public fechaFin;
 
   constructor(
-    private hospitalService: HospitalService,
     private picoPlacaService: PicoYPlacaServiceService,
-    private modalImagenService: ModalImagenService,
-    private busquedasService: BusquedasService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private router: Router,
     private usuarioService: UsuarioService,
   ) { }
 
   ngOnDestroy(): void {
-    // this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
-    // this.cargarHospitales();
-    // this.imgSubs = this.modalImagenService.nuevaImagen
-    // .pipe(delay(100))
-    // .subscribe(img => this.cargarHospitales());
 
     this.picoPlacaForm = this.fb.group({
       fechaInicio: ['', Validators.required],
@@ -189,56 +172,4 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
   borrar(indice: number) {
     this.digitoRestriccion.removeAt(indice);
   }
-
-  buscar(termino: string) {
-    if (termino.length === 0) {
-      return this.cargarHospitales();
-    }
-    this.busquedasService.buscar('hospitales', termino).subscribe(resp => {
-      this.hospitales = resp;
-    });
-  }
-
-  cargarHospitales() {
-    this.cargando = false;
-    this.hospitalService.cargarHospitales().subscribe(hospitales => {
-      this.cargando = false;
-      this.hospitales = hospitales;
-    });
-  }
-
-  guardarCambios(hospital: Hospital) {
-    this.hospitalService.actualizarHospital(hospital._id, hospital.nombre).subscribe(resp => {
-      Swal.fire('Actualizado', hospital.nombre, 'success');
-    })
-  }
-
-  eliminarHospital(hospital: Hospital) {
-    this.hospitalService.eliminarHospital(hospital._id).subscribe(resp => {
-      this.cargarHospitales();
-      Swal.fire('Eliminado', hospital.nombre, 'success');
-    })
-  }
-
-  async abrirSweetAlert() {
-    const { value = '' } = await Swal.fire<string>({
-      title: 'Crear hospital',
-      text: 'Ingrese el nombre del nuevo hospital',
-      input: 'text',
-      inputPlaceholder: 'Nombre del hospital',
-      showCancelButton: true,
-    })
-    
-    if (value.trim().length > 0) {
-      this.hospitalService.crearHospital(value).subscribe((resp: any) => {
-        this.hospitales.push(resp.hospital);
-      })
-    }
-  }
-
-  abrirModal(hospital: Hospital) {
-    this.modalImagenService.abrirModal('hospitales', hospital._id, hospital.img);
-  }
-
-
 }

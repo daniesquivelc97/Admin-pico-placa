@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
-import { Usuario } from '../../models/usuario.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,10 +20,4 @@ export class HeaderComponent {
     this.usuarioService.logOut();
   }
 
-  buscar(termino: string) {
-    if (termino.length === 0) {
-      return;
-    }
-    this.router.navigateByUrl(`/dashboard/buscar/${termino}`)
-  }
 }

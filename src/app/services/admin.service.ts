@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
-import { Medico } from '../models/medico.model';
 
 const base_url = environment.base_url;
 
@@ -36,11 +34,6 @@ export class AdminService {
     numeroIdentificacion: Number, email: string, password: string}) {
     const url = `${base_url}/crear`;
     return this.http.post(url, admin, this.headers);
-  }
-
-  actualizarMedico(medico: Medico) {
-    const url = `${base_url}/medicos/${medico._id}`;
-    return this.http.put(url, medico, this.headers);
   }
 
 }

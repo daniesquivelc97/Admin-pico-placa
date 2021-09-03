@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsuarioService } from '../../../services/usuario.service';
-import { Usuario } from '../../../models/usuario.model';
-import { BusquedasService } from '../../../services/busquedas.service';
 import Swal from 'sweetalert2';
-import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -17,25 +14,18 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public totalUsuarios = 0;
   public usuarios;
   public usuariosTemp;
-  public imgSubs: Subscription;
   public desde = 0;
   public cargando = true;
 
   constructor(
     private usuarioService: UsuarioService,
-    private busquedasService: BusquedasService,
-    private modalImagenService: ModalImagenService
   ) { }
 
   ngOnDestroy(): void {
-    this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
     this.cargarUsuarios();
-    this.imgSubs = this.modalImagenService.nuevaImagen
-    .pipe(delay(100))
-    .subscribe(img => this.cargarUsuarios());
   }
 
   cargarUsuarios(): void {
@@ -69,16 +59,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargarUsuarios();
   }
 
-  buscar(termino: string): Usuario[] {
-    if (termino.length === 0) {
-      return this.usuarios = this.usuariosTemp;
-    }
-    this.busquedasService.buscar('usuarios', termino).subscribe((resultados: Usuario[]) => {
-      this.usuarios = resultados;
-    });
-  }
-
-  eliminarUsuario(usuario: Usuario) {
+  eliminarUsuario(usuario) {
     Swal.fire({
       title: '¿Borrar usuario?',
       text: `Está a punto de eliminar a ${usuario.nombre}.`,
@@ -97,10 +78,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         });
       }
     });
-  }
-
-  abrirModal(usuario: Usuario) {
-    this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
   }
 
 }

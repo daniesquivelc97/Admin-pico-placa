@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Hospital } from 'src/app/models/hospital.model';
-import { HospitalService } from '../../../services/hospital.service';
-import { Medico } from '../../../models/medico.model';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../../services/usuario.service';
@@ -17,9 +14,6 @@ export class UsuarioNuevoComponent implements OnInit {
 
   public medicoForm: FormGroup;
   public usuarioForm: FormGroup;
-  public hospitales: Hospital[] = [];
-  public hospitalSeleccionado: Hospital;
-  public medicoSeleccionado: Medico;
 
   constructor(
     private fb: FormBuilder,
