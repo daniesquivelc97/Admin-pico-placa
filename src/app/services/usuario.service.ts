@@ -52,7 +52,6 @@ export class UsuarioService {
 
   googleInit(): Promise<void> {
     return new Promise<void>(resolve => {
-      console.log('Google init');
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
           client_id: '766264690680-m9aonr6a1j407o74eehgole4961idud4.apps.googleusercontent.com',
@@ -98,10 +97,8 @@ export class UsuarioService {
   }
 
   login(formData: LoginForm): Observable<any> {
-    console.log('Prueba', formData);
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
-        console.log('resp', resp);
         this.guardarLocalStorage(resp.token, resp.nombres);
       })
     );

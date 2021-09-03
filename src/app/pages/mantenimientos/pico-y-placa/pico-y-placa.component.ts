@@ -75,14 +75,10 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
 
   obtenerFecha() {
     this.picoPlacaService.obtenerPicoPlaca().subscribe(pico => {
-      console.log('pico', pico);
-      console.log('Pico y placa', pico[0].activo);
       this.idFecha = pico[0].idPicoYPlaca;
       this.fechaInicio = pico[0].fechaInicio;
       this.fechaFin = pico[0].fechaFin;
-      console.log('ID', this.idFecha);
       if (!pico[0].activo) {
-        console.log('HOla');
         this.mostrarRestriccionForm = true;
         this.mostrarCalendarioForm = false;
       }
@@ -104,14 +100,12 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
   obtenerRestricciones() {
     this.cargando = true;
     this.picoPlacaService.obtenerRestricciones().subscribe(restricciones => {
-      console.log('Restricciones', restricciones);
       this.restricciones = restricciones;
       this.cargando = false;
     });
   }
 
   guardarFecha() {
-    console.log('Fechas a guardar', this.picoPlacaForm.value);
     Swal.fire({
       title: '¿Guardar pico y placa?',
       text: `La fecha que va a establecer es desde el ${this.datePipe.transform(this.picoPlacaForm.value.fechaInicio,"dd-MM-yyyy")} 
@@ -123,7 +117,6 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
         this.picoPlacaService.crearPicoPlaca(this.picoPlacaForm.value).subscribe(fecha => {
-          console.log('Fecha', fecha);
           this.obtenerFecha();
           this.mostrarCalendarioForm = false;
           Swal.fire(
@@ -133,7 +126,6 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
             'success'
           );
         }, (error) => {
-          console.log('Error', error);
           Swal.fire(
             'Error',
             'Hubo un error estableciendo la medida.',
@@ -150,13 +142,10 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
       let guardar = numeros[i].toString();
       this.numerosString = this.numerosString.concat(guardar);
     }
-    console.log('Final', this.numerosString);
   }
 
   guardar() {
     this.anadirDigito();
-    console.log('Valor res', this.restriccionForm.value);
-    console.log('Digitos a guardar', this.digitoRestriccion.value.toString());
     this.tratarDigitos(this.digitoRestriccion.value.toString());
     let body = {
       tipoVehiculo:  this.restriccionForm.value.vehiculo,
@@ -167,7 +156,6 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
       }
     }
     this.picoPlacaService.crearRestriccionPicoPlaca(body).subscribe(res => {
-      console.log('Respuesta restriccion', res);
       Swal.fire(
         'Restricción establecida',
         `Restricción establecida correctamente.`,
@@ -177,7 +165,6 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
       this.digitoRestriccion.clear();
       this.obtenerRestricciones();
     }, (error) => {
-      console.log('Error', error);
       Swal.fire(
         'Error',
         'Hubo un error estableciendo la medida.',
@@ -193,7 +180,6 @@ export class PicoYPlacaComponent implements OnInit, OnDestroy {
   }
 
   anadirDigito() {
-    console.log('a guardar', this.restriccionForm.value.digito);
     const digito = this.fb.array([
       new FormControl(this.restriccionForm.value.digito.toString()),
     ]);

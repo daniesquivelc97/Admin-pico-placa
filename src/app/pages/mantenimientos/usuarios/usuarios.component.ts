@@ -42,7 +42,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargando = true;
     this.usuarioService.obtenerUsuarios().subscribe(resp => {
       this.usuarios = resp;
-      console.log('Usuarios', this.usuarios);
       this.usuariosTemp = resp;
       this.cargando = false;
     }, (error) => {
@@ -101,7 +100,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   abrirModal(usuario: Usuario) {
-    console.log(usuario);
     this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
   }
 

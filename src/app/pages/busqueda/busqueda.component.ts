@@ -28,10 +28,8 @@ export class BusquedaComponent implements OnInit {
 
   busquedaGlobal(termino: string) {
     this.busquedasService.busquedaGlobal(termino).subscribe((resp: any) => {
-      console.log(resp);
       this.usuarios = resp.usuarios;
       this.medicos = resp.medicos;
-      console.log('med', this.medicos[0]._id);
       this.hospitales = resp.hospitales;
     });
   }

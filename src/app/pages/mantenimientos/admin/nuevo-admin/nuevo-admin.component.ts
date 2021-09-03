@@ -28,10 +28,7 @@ export class NuevoAdminComponent implements OnInit {
   }
 
   guardarAdmin() {
-    console.log('Prueba admin guardado');
-    console.log('Admin a guardar', this.adminForm.value);
     this.adminService.crearAdmin(this.adminForm.value).subscribe((admin: any) => {
-      console.log('Resp', admin);
       Swal.fire('Registro exitoso', `${admin.nombre} creado correctamente`, 'success');
       this.router.navigateByUrl('/dashboard/admins');
     });

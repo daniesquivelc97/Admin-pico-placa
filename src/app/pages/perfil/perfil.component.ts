@@ -58,7 +58,6 @@ export class PerfilComponent implements OnInit {
         this.usuario.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch(err => {
-        console.log(err);
         Swal.fire('Error', 'Error al actualizar la imagen', 'error');
       });
   }

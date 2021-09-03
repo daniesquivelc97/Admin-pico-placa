@@ -37,7 +37,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.medicoService.cargarAdmins().subscribe(admins => {
       this.cargando = false;
       this.admins = admins;
-      console.log('Admins', this.admins);
     }, (error) => {
       if (error.status === 403) {
         Swal.fire(

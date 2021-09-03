@@ -46,7 +46,6 @@ export class ModalImagenComponent implements OnInit {
         this.modalImagenService.nuevaImagen.emit(img);
         this.cerrarModal();
       }).catch(err => {
-        console.log(err);
         Swal.fire('Error', 'Error al actualizar la imagen', 'error');
       });
   }

@@ -43,10 +43,7 @@ export class UsuarioNuevoComponent implements OnInit {
 
   
   guardarUsuario() {
-    console.log('Prueba usuario guardado');
-    console.log('Usuario a guardar', this.usuarioForm.value);
     this.usuarioService.crearUsuario(this.usuarioForm.value).subscribe((resp: any) => {
-      console.log('Resp', resp);
       Swal.fire('Usuario creado',`${resp.nombre} fue creado correctamente`, 'success');
       this.router.navigateByUrl('/dashboard/usuarios');
     });
