@@ -13,7 +13,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { PicoYPlacaComponent } from './mantenimientos/pico-y-placa/pico-y-placa.component';
 import { AdminComponent } from './mantenimientos/admin/admin.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { UsuarioNuevoComponent } from './mantenimientos/usuarios/usuario-nuevo.component';
@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -38,7 +39,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
-    HospitalesComponent,
+    PicoYPlacaComponent,
     AdminComponent,
     UsuarioNuevoComponent,
     BusquedaComponent,
@@ -50,7 +51,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     Grafica1Component,
     PagesComponent,
     AccountSettingsComponent,
-    DatePipe
+    DatePipe,
   ],
   imports: [
     CommonModule,
@@ -65,7 +66,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    // DatePipe
   ],
 })
 export class PagesModule { }

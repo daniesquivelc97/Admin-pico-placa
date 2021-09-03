@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 declare const gapi: any;
 const base_url = environment.base_url;
@@ -21,7 +22,7 @@ export class UsuarioService {
   public auth2: any;
   public usuario: Usuario;
 
-  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) {
+  constructor(private http: HttpClient, private router: Router, private ngZone: NgZone, public jwtHelper: JwtHelperService) {
     this.googleInit();
   }
 
@@ -89,6 +90,11 @@ export class UsuarioService {
       return true;
     }),
       catchError(error => of(false)));
+  }
+
+  validatAutenticacion(): boolean {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   login(formData: LoginForm): Observable<any> {

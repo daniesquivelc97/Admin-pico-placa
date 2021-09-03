@@ -3,6 +3,8 @@ import { AdminService } from '../../../services/admin.service';
 import { Medico } from '../../../models/medico.model';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-medicos',
@@ -19,6 +21,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(
     private medicoService: AdminService,
     private modalImagenService: ModalImagenService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnDestroy(): void {
@@ -35,6 +38,18 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.cargando = false;
       this.admins = admins;
       console.log('Admins', this.admins);
+    }, (error) => {
+      if (error.status === 403) {
+        Swal.fire(
+          'Error',
+          'Sesión expirada por inactividad.',
+          'error'
+        ).then((result) => {
+          if (result.value || result.isDismissed) {
+            this.usuarioService.logOut();
+          }
+        });
+      }
     });
   }
 

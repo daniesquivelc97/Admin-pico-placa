@@ -12,21 +12,32 @@ export class AuthGuard implements CanActivate, CanLoad {
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return this.usuarioService.validarToken().pipe(tap(estaAutenticado => {
-        if (!estaAutenticado) {
-          this.router.navigateByUrl('/login');
-        }
-      }));
+    // return this.usuarioService.validarToken().pipe(tap(estaAutenticado => {
+    //   console.log('Autenticado', estaAutenticado);
+    //     if (!estaAutenticado) {
+    //       this.router.navigateByUrl('/login');
+    //     }
+    //   }));
+    if (!this.usuarioService.validatAutenticacion()) {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
+    return true;
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-      return this.usuarioService.validarToken().pipe(tap(estaAutenticado => {
-        if (!estaAutenticado) {
-          this.router.navigateByUrl('/login');
-        }
-      }));
+      // return this.usuarioService.validarToken().pipe(tap(estaAutenticado => {
+      //   if (!estaAutenticado) {
+      //     this.router.navigateByUrl('/login');
+      //   }
+      // }));
+      if (!this.usuarioService.validatAutenticacion()) {
+        this.router.navigateByUrl('/login');
+        return false;
+      }
+      return true;
   }
 
 }

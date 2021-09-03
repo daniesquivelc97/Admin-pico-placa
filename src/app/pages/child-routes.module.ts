@@ -9,7 +9,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { PicoYPlacaComponent } from './mantenimientos/pico-y-placa/pico-y-placa.component';
 import { AdminComponent } from './mantenimientos/admin/admin.component';
 import { UsuarioNuevoComponent } from './mantenimientos/usuarios/usuario-nuevo.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
@@ -28,7 +28,7 @@ const childRoutes: Routes = [
   { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' } },
 
   // Mantenimientos
-  { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales' } },
+  { path: 'picoyplaca', component: PicoYPlacaComponent, data: { titulo: 'Pico y placa UCO' } },
   { path: 'admins', component: AdminComponent, data: { titulo: 'Administradores del parqueadero' } },
   { path: 'usuario/:id', component: UsuarioNuevoComponent, data: { titulo: 'Crear usuarios' } },
   { path: 'admin/:id', component: NuevoAdminComponent, data: { titulo: 'Crear administradores' } },

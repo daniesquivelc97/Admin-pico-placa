@@ -45,6 +45,18 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       console.log('Usuarios', this.usuarios);
       this.usuariosTemp = resp;
       this.cargando = false;
+    }, (error) => {
+      if (error.status === 403) {
+        Swal.fire(
+          'Error',
+          'Sesión expirada por inactividad.',
+          'error'
+        ).then((result) => {
+          if (result.value || result.isDismissed) {
+            this.usuarioService.logOut();
+          }
+        });
+      }
     });
   }
 

@@ -10,14 +10,16 @@ import { Subscription } from 'rxjs';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PicoYPlacaServiceService } from '../../../services/pico-yplaca-service.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-hospitales',
-  templateUrl: './hospitales.component.html',
+  templateUrl: './pico-y-placa.component.html',
   styles: [
   ]
 })
-export class HospitalesComponent implements OnInit, OnDestroy {
+export class PicoYPlacaComponent implements OnInit, OnDestroy {
 
   public hospitales: Hospital[] = [];
   public cargando: boolean = true;
@@ -39,7 +41,9 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     private modalImagenService: ModalImagenService,
     private busquedasService: BusquedasService,
     private fb: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router,
+    private usuarioService: UsuarioService,
   ) { }
 
   ngOnDestroy(): void {
@@ -65,7 +69,6 @@ export class HospitalesComponent implements OnInit, OnDestroy {
       digitoRestriccion: this.fb.array([]),
     });
 
-    this.crearFormulario();
     this.obtenerFecha();
     this.obtenerRestricciones();
   }
@@ -82,6 +85,18 @@ export class HospitalesComponent implements OnInit, OnDestroy {
         console.log('HOla');
         this.mostrarRestriccionForm = true;
         this.mostrarCalendarioForm = false;
+      }
+    }, (error) => {
+      if (error.status === 403) {
+        Swal.fire(
+          'Error',
+          'Sesión expirada por inactividad.',
+          'error'
+        ).then((result) => {
+          if (result.value || result.isDismissed) {
+            this.usuarioService.logOut();
+          }
+        });
       }
     });
   }
@@ -169,22 +184,12 @@ export class HospitalesComponent implements OnInit, OnDestroy {
         'error'
       );
     });
-    
+    this.numerosString = "";
   }
 
-  crearFormulario() {
-    this.formulario = this.fb.group({
-      vehiculo: ['', Validators.required],
-      experienciaLaboral: this.fb.array([])
-    });
-  }
 
   get digitoRestriccion(): FormArray {
     return this.restriccionForm.get('digitoRestriccion') as FormArray;
-  }
-
-  get experienciaLaboral(): FormArray {
-    return this.formulario.get('experienciaLaboral') as FormArray;
   }
 
   anadirDigito() {
@@ -193,29 +198,6 @@ export class HospitalesComponent implements OnInit, OnDestroy {
       new FormControl(this.restriccionForm.value.digito.toString()),
     ]);
     this.digitoRestriccion.push(new FormControl(Number(digito.value.toString())));
-  }
-
-  // confirmar() {
-  //   this.anadirDigito();
-  //   this.borrar(2);
-  //   this.flag = true;
-  //   console.log('otro 2', this.digitoRestriccion.value);
-  //   console.log('flag', this.flag);
-  // }
-
-  anadirExperienciaLaboral() {
-    const trabajo = this.fb.group({
-      empresa: new FormControl(''),
-      puesto: new FormControl(''),
-      descripcion: new FormControl('')
-    });
-  
-    this.experienciaLaboral.push(trabajo);
-    console.log('empleo', this.formulario.getRawValue());
-  }
-
-  borrarTrabajo(indice: number) {
-    this.experienciaLaboral.removeAt(indice);
   }
 
   borrar(indice: number) {

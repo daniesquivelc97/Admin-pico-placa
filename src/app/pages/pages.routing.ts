@@ -9,8 +9,8 @@ const routes: Routes = [
     {
         path: 'dashboard',
         component: PagesComponent,
-        // canActivate: [AuthGuard],
-        // canLoad: [AuthGuard],
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         loadChildren: () => import('./child-routes.module').then(module => module.ChildRoutesModule),
     },
 ];

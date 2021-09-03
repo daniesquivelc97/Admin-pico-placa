@@ -13,6 +13,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { JwtHelperService, JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -30,7 +35,13 @@ import { DatePipe } from '@angular/common';
     MatButtonModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    // DatePipe
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        // allowedDomains: ["example.com"],
+        // disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    }),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
